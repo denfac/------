@@ -10,7 +10,7 @@ const PORT = 3000;
 app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware for parsing JSON
-data 
+let data = {}; 
 app.use(express.json());
 
 // Database setup
