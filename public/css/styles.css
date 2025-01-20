@@ -1,0 +1,222 @@
+/* Сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Контейнер */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Шапка сайта */
+header {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Иконка гамбургер-меню */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    height: 3px;
+    width: 25px;
+    background-color: white;
+    margin: 4px 0;
+}
+
+/* Адаптивность: для мобильных и планшетов */
+@media (max-width: 768px) {
+    /* Меню */
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: #333;
+    }
+
+    .nav-links li {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+}
+
+/* Блок героя */
+.hero {
+    background-image: url('/public/images/anime1920X500.webp');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 0;
+    text-align: center;
+    color: white;
+}
+
+.hero h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.hero button {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.hero button:hover {
+    background-color: #e67e22;
+}
+
+/* Стили для контейнера с карточками аниме */
+.anime-cards-container {
+    overflow-x: auto; /* Включаем горизонтальную прокрутку */
+    padding: 20px 0;
+}
+
+.anime-cards {
+    display: flex;
+    gap: 20px;
+}
+
+.anime-card {
+    min-width: 250px; /* Устанавливаем минимальную ширину карточки */
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.anime-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.anime-card h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.anime-card p {
+    font-size: 14px;
+    color: #666;
+}
+
+
+/* Футер */
+footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
+/* Адаптивность для экранов меньше 768px */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+    }
+
+    nav.open ul {
+        display: flex;
+    }
+}
+
+/* Стили для страницы аниме */
+.anime-detail {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.anime-detail h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.anime-detail p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.video-player {
+    margin-bottom: 30px;
+}
+
+video {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 10px;
+}
+

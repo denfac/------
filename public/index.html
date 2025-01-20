@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">Логотип</a>
+        <div class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">О нас</a></li>
+            <li><a href="#">Услуги</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
+    </header>
+
+    
+  
+
+    <!-- Основной контент страницы -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Добро пожаловать в мир аниме!</h2>
+                <p>Смотрите ваши любимые сериалы онлайн в отличном качестве</p>
+                <button>Начать просмотр</button>
+            </div>
+        </section>
+
+          <!-- Карточки с аниме -->
+          <section class="anime-list">
+            <div class="container">
+                <h2>Популярные аниме</h2>
+                <div class="anime-cards-container">
+                    <div class="anime-cards">
+                        <div class="anime-card">
+                            <a href="/anime/1">
+                                <img src="images/animeTitl1.250x350.webp" alt="Аниме 1">
+                                <h3>Название Аниме 1</h3>
+                            </a>
+                            
+                            <p>Описание аниме 1...</p>
+                        </div>
+                        <div class="anime-card">
+                            <a href="anime2.html">
+                                <img src="images/animeTitl2.250x350.webp" alt="Аниме 2">
+                                <h3>Название Аниме 2</h3>
+                            </a>
+                            <p>Описание аниме 2...</p>
+                        </div>
+                        <div class="anime-card">
+                            <a href="anime3.html">
+                                <img src="images/animeTitl3.250x350.webp" alt="Аниме 3">
+                                <h3>Название Аниме 3</h3>
+                            </a>
+                            <p>Описание аниме 3...</p>
+                        </div>
+                        <div class="anime-card">
+                            <a href="anime4.html">
+                                <img src="images/animeTitl4.250x350.webp" alt="Аниме 4">
+                                <h3>Название Аниме 4</h3>
+                            </a>
+                            <p>Описание аниме 4...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Дополнительные блоки с аниме -->
+        <section class="anime-list">
+            <div class="container">
+                <h2>Рекомендуемые аниме</h2>
+                <div class="anime-cards-container">
+                    <div class="anime-cards">
+                        <div class="anime-card">
+                            <a href="anime5.html">
+                                <img src="images/animeTitl5.250x350.webp" alt="Аниме 5">
+                                <h3>Название Аниме 5</h3>
+                            </a>
+                            <p>Описание аниме 5...</p>
+                        </div>
+                        <div class="anime-card">
+                            <a href="anime6.html">
+                                <img src="images/animeTitl6.250x350.webp" alt="Аниме 6">
+                                <h3>Название Аниме 6</h3>
+                            </a>
+                            <p>Описание аниме 6...</p>
+                        </div>
+                        <div class="anime-card">
+                            <a href="anime7.html">
+                                <img src="images/animeTitl7.250x350.webp" alt="Аниме 7">
+                                <h3>Название Аниме 7</h3>
+                            </a>
+                            <p>Описание аниме 7...</p>
+                        </div>
+                        <div class="anime-card">
+                            <a href="anime8.html">
+                                <img src="images/animeTitl8.250x350.webp" alt="Аниме 8">
+                                <h3>Название Аниме 8</h3>
+                            </a>
+                            <p>Описание аниме 8...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="anime-list">
+            <div class="container">
+                <h2>Новые поступления</h2>
+                <div class="anime-cards-container">
+                    <div class="anime-cards">
+                        <div class="anime-card">
+                            <a href="anime9.html">
+                                <img src="images/animeTitl9.250x350.webp" alt="Аниме 9">
+                                <h3>Название Аниме 9</h3>
+                            </a>
+                            <p>Описание аниме 9...</p>
+                        </div>
+                        <div class="anime-card">
+                            <a href="anime10.html">
+                                <img src="images/animeTitl10.250x350.webp" alt="Аниме 10">
+                                <h3>Название Аниме 10</h3>
+                            </a>
+                            <p>Описание аниме 10...</p>
+                        </div>
+                        <div class="anime-card">
+                            <a href="anime11.html">
+                                <img src="images/animeTitl11.250x350.webp" alt="Аниме 11">
+                                <h3>Название Аниме 11</h3>
+                            </a>
+                            <p>Описание аниме 11...</p>
+                        </div>
+                        <div class="anime-card">
+                            <a href="images/anime12.html">
+                                <img src="animeTitl12.250x350.webp" alt="Аниме 12">
+                                <h3>Название Аниме 12</h3>
+                            </a>
+                            <p>Описание аниме 12...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
