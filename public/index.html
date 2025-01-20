@@ -153,6 +153,33 @@
     </main>
 
     <script>
+        async function fetchTitles() {
+            const response = await fetch('/titles');
+            const titles = await response.json();
+            const container = document.querySelector('.anime-cards');
+    
+            container.innerHTML = ''; // Очистим контейнер перед добавлением новых данных
+    
+            titles.forEach(title => {
+                const card = document.createElement('div');
+                card.classList.add('anime-card');
+                card.innerHTML = `
+                    <a href="/anime/${title.id}">
+                        <img src="${title.coverImage}" alt="${title.name}">
+                        <h3>${title.name}</h3>
+                    </a>
+                    <p>${title.description}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+    
+        // Загружаем данные при загрузке страницы
+        document.addEventListener('DOMContentLoaded', fetchTitles);
+    </script>
+    
+
+    <script>
         const menuToggle = document.getElementById('menu-toggle');
         const navLinks = document.getElementById('nav-links');
 
