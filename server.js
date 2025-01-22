@@ -1,25 +1,27 @@
+// Импорты
 const express = require("express");
 const { Sequelize, DataTypes } = require("sequelize");
 const path = require("path");
-const fs = require("fs");
+const cors = require('cors');
+
+
+
 
 const app = express();
 const PORT = 3000;
 
-// Static files for frontend
+// Подключение статических файлов
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json()); // Middleware для парсинга JSON
+app.use(cors());
 
-// Middleware for parsing JSON
-let data = {}; 
-app.use(express.json());
-
-// Database setup
+// Настройка базы данных
 const sequelize = new Sequelize({
   dialect: "sqlite",
   storage: "anime.db",
 });
 
-// Models
+// Определение модели Title
 const Title = sequelize.define("Title", {
   name: {
     type: DataTypes.STRING,
@@ -31,10 +33,19 @@ const Title = sequelize.define("Title", {
   },
   coverImage: {
     type: DataTypes.STRING,
-    allowNull: false, // Path to image
+    allowNull: false,
+  },
+  popularity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  isRecommended: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
 });
 
+// Определение модели Episode
 const Episode = sequelize.define("Episode", {
   titleId: {
     type: DataTypes.INTEGER,
@@ -46,94 +57,102 @@ const Episode = sequelize.define("Episode", {
   },
   videoFile: {
     type: DataTypes.STRING,
-    allowNull: false, // Path to video file
+    allowNull: false,
   },
 });
 
+// Установление связей между моделями
 Title.hasMany(Episode, { foreignKey: "titleId" });
 Episode.belongsTo(Title, { foreignKey: "titleId" });
 
-// Routes
+// Маршруты для API
+
+// Получение всех аниме
 app.get("/titles", async (req, res) => {
   const titles = await Title.findAll();
   res.json(titles);
 });
 
+// Получение популярного аниме
+app.get("/popular-titles", async (req, res) => {
+  const popularTitles = await Title.findAll({
+    order: [["popularity", "DESC"]],
+    limit: 8,
+  });
+  res.json(popularTitles);
+});
+
+// Получение рекомендуемого аниме
+app.get("/recommended-titles", async (req, res) => {
+  const recommendedTitles = await Title.findAll({
+    where: { isRecommended: true },
+    order: [["popularity", "DESC"]],
+    limit: 8,
+  });
+  res.json(recommendedTitles);
+});
+
+// Получение новых поступлений
+app.get("/new-titles", async (req, res) => {
+  const newTitles = await Title.findAll({
+    order: [["createdAt", "DESC"]],
+    limit: 8,
+  });
+  res.json(newTitles);
+});
+
+// Добавление нового аниме
+app.post("/titles", async (req, res) => {
+  const { name, description, coverImage, popularity, isRecommended } = req.body;
+  const newTitle = await Title.create({
+    name,
+    description,
+    coverImage,
+    popularity,
+    isRecommended,
+  });
+  res.status(201).json(newTitle);
+});
+
+// Получение конкретного аниме с сериями
 app.get("/titles/:id", async (req, res) => {
   const { id } = req.params;
   const title = await Title.findByPk(id, { include: Episode });
 
-  if (!title) return res.status(404).json({ error: "Title not found" });
+  if (!title) return res.status(404).json({ error: "Аниме не найдено" });
 
-  res.json(title);
-});
-app.get('/anime/:id', async (req, res) => {
-    const { id } = req.params;
-    const title = await Title.findByPk(id, { include: Episode });
-    if (!title) return res.status(404).send('Title not found');
-
-    res.send(`
-        <!DOCTYPE html>
-        <html lang="ru">
-        <head>
-            <meta charset="UTF-8">
-            <title>${title.name}</title>
-            <link rel="stylesheet" href="/css/styles.css">
-        </head>
-        <body>
-            <header>
-                <a href="/" class="logo">Логотип</a>
-            </header>
-            <main class="anime-detail">
-                <h1>${title.name}</h1>
-                <p>${title.description}</p>
-                <div class="video-player">
-                    <h2>Список серий:</h2>
-                    <ul>
-                        ${title.Episodes.map(
-                            (episode) => `
-                            <li>
-                                <a href="/episodes/${episode.id}">Серия ${episode.episodeNumber}</a>
-                            </li>`
-                        ).join('')}
-                    </ul>
-                </div>
-            </main>
-        </body>
-        </html>
-    `);
+  res.json({
+    id: title.id,
+    name: title.name,
+    description: title.description,
+    coverImage: title.coverImage,
+    popularity: title.popularity,
+    isRecommended: title.isRecommended,
+    episodes: title.Episodes.map((episode) => ({
+      id: episode.id,
+      episodeNumber: episode.episodeNumber,
+      videoFile: episode.videoFile,
+    })),
+  });
 });
 
+// Получение данных о серии
+app.get("/episodes/:id", async (req, res) => {
+  const { id } = req.params;
+  const episode = await Episode.findByPk(id);
 
-app.get('/episodes/:id', async (req, res) => {
-    const { id } = req.params;
-    const episode = await Episode.findByPk(id);
+  if (!episode) return res.status(404).json({ error: "Серия не найдена" });
 
-    if (!episode) return res.status(404).send('Episode not found');
-
-    res.send(`
-        <!DOCTYPE html>
-        <html lang="ru">
-        <head>
-            <meta charset="UTF-8">
-            <title>Серия ${episode.episodeNumber}</title>
-            <link rel="stylesheet" href="/css/styles.css">
-        </head>
-        <body>
-            <main class="anime-detail">
-                <h1>Серия ${episode.episodeNumber}</h1>
-                <video controls>
-                    <source src="/uploads/${episode.videoFile}" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-            </main>
-        </body>
-        </html>
-    `);
+  res.json({
+    id: episode.id,
+    titleId: episode.titleId,
+    episodeNumber: episode.episodeNumber,
+    videoFile: episode.videoFile,
+  });
 });
 
-// Sync database and start server
-sequelize.sync({ force: true }).then(() => {
+// Синхронизация базы данных и запуск сервера
+sequelize.sync({ alter: true }).then(() => {
   console.log("Database synced");
   app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);

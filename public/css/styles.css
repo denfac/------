@@ -166,6 +166,9 @@ header {
     font-size: 14px;
     color: #666;
 }
+.anime-list {
+    display: block; /* Убедитесь, что это не display: none */
+  }
 
 
 /* Футер */
