@@ -1,32 +1,20 @@
-// Импорты
-const express = require("express");
-const { Sequelize, DataTypes } = require("sequelize");
-const path = require("path");
-const cors = require('cors');
+// server.js
 
-
-
+const express = require('express');
+const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const port = 3000;
 
-// Подключение статических файлов
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.json()); // Middleware для парсинга JSON
-app.use(cors());
+// Статические файлы (CSS, изображения и т.д.)
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Настройка базы данных
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "anime.db",
+// Главная страница
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-
-
-// Синхронизация базы данных и запуск сервера
-sequelize.sync({ alter: true }).then(() => {
-  console.log("Database synced");
-  app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-  });
+// Запуск сервера
+app.listen(port, () => {
+  console.log(`Сервер запущен на http://localhost:${port}`);
 });
