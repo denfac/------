@@ -38,6 +38,85 @@ header nav ul li a:hover {
   text-decoration: underline;
 }
 
+/* Общие стили для страницы */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+header nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+header nav ul li {
+  margin-right: 20px;
+}
+
+header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Стили для контента */
+main {
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Дополнительные стили для ссылок на эпизоды */
+ul {
+  padding-left: 20px;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+
+ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  color: #007BFF;
+}
+
+
 /* Основной контент */
 main {
   padding: 20px;
@@ -112,4 +191,49 @@ footer {
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+.anime-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.anime-card {
+  width: 200px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.anime-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.anime-card h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.anime-card a {
+  text-decoration: none;
+  color: black;
+}
+
+.anime-card a:hover {
+  color: #007BFF;
+}
+
+/* Страница аниме */
+.anime-details {
+  text-align: center;
+  padding: 20px;
+}
+
+.video-container {
+  margin: 20px auto;
+  width: 560px;
 }
